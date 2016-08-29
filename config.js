@@ -27,7 +27,11 @@ latitude:"36.54596",
 // Location Longitude for initial login
 longitude:"-79.22247",
 // Country code (e.g. BE, FR, US, CA)
-country:"US"
+country:"US",
+// Proxy server to use (optional).
+proxyServer:"",
+proxyUsername:"",
+proxyPassword:""
 };
 
 module.exports = config;
