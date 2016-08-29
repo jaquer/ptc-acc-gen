@@ -22,6 +22,9 @@ var email_domain = configFile.emailDomain;
 var lat = configFile.latitude;
 var lon = configFile.longitude;
 var country = configFile.country;
+var proxyServer = configFile.proxyServer;
+var proxyUsername = configFile.proxyUsername;
+var proxyPassword = configFile.proxyPassword;
 // End Config File Imports
 
 // Reports of changing this tossing errors so i didnt touch
@@ -38,7 +41,10 @@ var nightmare_opts = {
     show: showWindow,
     waitTimeout: 10000,
     gotoTimeout: 5000,
-    loadTimeout: 5000
+    loadTimeout: 5000,
+    switches: {
+        'proxy-server': proxyServer
+    }
 };
 // Prints nice little message
 console.log("ptc-acc-gen v2.5.0 hotfix r3 by Sébastien Vercammen and Frost The Fox (and Github contribs)");
@@ -105,7 +111,9 @@ function handleFirstPage(ctr) {
         console.log("[DEBUG] Handle first page #" + ctr);
     }
     
-    nightmare.goto(url_ptc)
+    nightmare
+        .authentication(proxyUsername, proxyPassword)
+        .goto(url_ptc)
         .evaluate(evaluateDobPage)
         .then(function(validated)  {
             if(!validated) {
